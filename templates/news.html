@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%  block content %}
+
+<div class="container-fluid pt-3 ps-4 pe-4">
+    <div class="container">
+        <ul>
+        {% for item in api_data %}
+            <li>
+                <strong>ID:</strong> {{ item.id }}<br>
+                <strong>Name:</strong> {{ item.name }}<br>
+                <strong>Library:</strong> {{ item.library }}<br>
+                <strong>Date:</strong> {{ item.date }}<br>
+                <strong>Description:</strong> {{ item.description }}<br>
+                <strong>Image:</strong> <img src="{{ item.image }}" alt="Event Image">
+            </li>
+            <br>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="mb-5 text-center fixed-bottom d-grid gap-2 ps-4 pe-4">
+        <a href="{% url 'index' %}" type="button" class="btn btn-warning btn" data-mdb-ripple-init>ВЕРНУТЬСЯ</a>
+    </div>
+</div>
+
+{% endblock %}
