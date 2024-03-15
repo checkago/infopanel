@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /usr/src/web
 
 COPY requirements.txt .
-COPY entrypoint.sh .
 
 RUN apk --update add
 RUN apk add gcc libc-dev libffi-dev jpeg-dev zlib-dev libjpeg libwebp-dev
