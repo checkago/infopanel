@@ -5,29 +5,30 @@
 
 <div class="container-fluid pt-3 ps-1 pe-1">
     <div class="card-title text-center">
-        <h4 class="text-primary">МЕРОПРИЯТИЯ</h4>
+        <h4 class="text-primary">КРУЖКИ</h4>
     </div>
     <div class="container pb-1 overflow-auto" style="max-height: 580px;">
         <div class="text-center">
-        {% for item in events_data %}
+        {% for Section in krujki_data %}
+            <a href="{% url 'krujok_detail' Section.pk %}">
             <div class="card mb-2">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5">
-                            <img class="img-fluid" src="{{ item.image }}" alt="Event Image">
+                            <img class="img-fluid" src="{{ Section.image.url }}" alt="Section Image">
                         </div>
                         <div class="col-7">
-                            {{ item.name }}<br>
-                            {{ item.date }}<br>
+                            {{ Section.name }}<br>
                         </div>
                     </div>
                 </div>
             </div>
+            </a>
         {% endfor %}
         </div>
     </div>
     <div class="mb-5 text-center fixed-bottom d-grid gap-2 ps-4 pe-4">
-        <a href="{% url 'index' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>ВЕРНУТЬСЯ</a>
+        <a href="{% url 'index' %}" type="button" class="btn btn-primary btn" data-mdb-ripple-init>ВЕРНУТЬСЯ</a>
     </div>
 </div>
 

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {%  block content %}
@@ -8,35 +9,36 @@
         <img class="img-fluid" src="{{ header.image.url}}" />
     </div>
     <div id="carouselExampleControls" class="carousel slide pt-2 shadow-2 border-2 border-black" data-mdb-ride="carousel"
-         data-mdb-carousel-init style="max-height:375px">
-        <div class="carousel-inner">
+         data-mdb-carousel-init style="max-height:279px; min-height:279px">
+        <div class="carousel-inner" id="carousel-inner">
             {% for item in events_data %}
-            <div class="carousel-item active">
-              <img src="{{ item.image }}" class="d-block w-100" />
-            </div>
+                <div class="carousel-item active">
+                  <img src="{{ item.image }}" class="d-block w-100" />
+                </div>
             {% endfor %}
-            {% for item in movies_data %}
-            <div class="row mt-5 mb-5">
-                {% for cinemaweek in object_list %}
-                     {% for cinemaday in cinemaweek.cinemadays.all %}
-                         <div class="col-md-2"></div>
-                        <div class="col-md-8 mt-4 mb-4">
-                            <div class="card card-cascade wider mb-2">
-                                <div class="card-header"><h2 class="font-weight-bold text-danger">{{ cinemaday.name }} - {{ cinemaday.date|date:"d.m.y" }}</h2></div>
-                                <div class="card-body">
-                                    {% for movie in cinemaday.movies.all %}
-                                    <div class="row">
-                                        <div class="col-md-3 col-3 col-sm-3 col-lg-3"><h4 class="font-weight-bold font-responsive ri pp mbp">{{ movie.start_time|time:"H:i" }}</h4></div>
-                                        <div class="col-md-9 col-9 col-sm-9 col-lg-9"><h4 class="font-weight-bold font-responsive ri pp mbp">{{ movie.name }}</h4></div>
-                                    </div>
-                                        <hr class="hrp">
-                                    {% endfor %}
-                                </div>
+            {% for day in movies_data %}
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-cascade wider" style="height:279px">
+                            <div class="card-header">
+                                <h5 class="font-weight-bold text-danger"><span class="text-dark">Кинозал</span> | {{ day.day_name }} - {{ day.date }}</h5>
+                            </div>
+                            <div class="card-body">
+                                {% for movie in day.movies %}
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <h6 class="font-weight-bold text-danger font-responsive ri pp mbp">{{ movie.start_time }}</h6>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <h6 class="font-weight-bold font-responsive ri pp mbp">{{ movie.movie_name }}</h6>
+                                            </div>
+                                        </div>
+                                {% endfor %}
                             </div>
                         </div>
-                         <div class="col-md-2"></div>
-                    {% endfor %}
-                {% endfor %}
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -49,18 +51,46 @@
             <span class="visually-hidden">Следующий</span>
           </button>
     </div>
-    <div class="row g-1 pt-3 text-center">
-        <div class="col-6 mb-1"><a href="#" type="button" class="btn btn-primary" data-mdb-ripple-init>МЕРОПРИЯТИЯ</a></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
-        <div class="col-6 mb-1"><button type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</button></div>
+
+    <div class="row g-1 pt-3 mt-2 text-center">
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'events-list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>МЕРОПРИЯТИЯ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'news-list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>НОВОСТИ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'krujki-list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>КРУЖКИ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'pravila' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>ПРАВИЛА</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'pushkin' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>ПУШКИНСКАЯ КАРТА</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'reglament-list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>РЕГЛАМЕНТЫ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'qr-code-list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>QR КОДЫ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'services_list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>ПРАЙС НА УСЛУГИ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="{% url 'shedule_list' %}" type="button" class="btn btn-primary" data-mdb-ripple-init>РАСПИСАНИЕ</a></div>
+        <div class="col-6 mb-1 d-grid gap-2 ps-1 pe-1 pb-1"><a href="#" type="button" class="btn btn-primary" data-mdb-ripple-init>КАРТА-СХЕМА</a></div>
 
     </div>
 </div>
+
+<script>
+    function updateSliderData() {
+        // Здесь можно сделать AJAX-запрос к вашему API для получения новых данных
+        // Например, использовать fetch или jQuery AJAX
+
+        fetch('https://obs-balashiha.ru/api/v1/event_list/')
+            .then(response => response.json())
+            .then(data => {
+                let carouselInner = document.getElementById('carousel-inner');
+                carouselInner.innerHTML = '';
+
+                data.forEach(item => {
+                    let carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+                    carouselItem.innerHTML = `<img src="${item.image}" class="d-block w-100" />`;
+
+                    carouselInner.appendChild(carouselItem);
+                });
+            })
+            .catch(error => console.error('Ошибка при обновлении слайдера:', error));
+    }
+
+    // Обновление данных слайдера каждые 5 минут
+    setInterval(updateSliderData, 300000); // 300000 миллисекунд = 5 минут
+</script>
 
 {% endblock %}

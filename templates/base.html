@@ -30,8 +30,8 @@
     <div class="container-fluid pt-3 ps-4 pe-4">
     <div class="container">
         <div class="row">
-            <div class="col-6 text-white fw-bold"><h4>14:00</h4></div>
-            <div class="col-6 text-end text-white fw-bold">25 января</div>
+            <div class="col-6 text-white fw-bold" id="current-time"><h4>{% now "H:i" %}</h4></div>  <!-- Вывод текущего времени в формате ЧЧ:ММ -->
+            <div class="col-6 text-end text-white fw-bold">{% now "F d" %}</div>  <!-- Вывод текущей даты в формате ДД Месяц -->
         </div>
     </div>
 
@@ -49,6 +49,26 @@
     <!-- Footer -->
     <!-- End your project here-->
   </body>
+  <!-- CURRENT TIME -->
+  <script>
+    function updateTime() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+
+        // Добавление нуля перед однозначными числами
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+
+        var timeString = hours + ":" + minutes;
+
+        document.getElementById("current-time").innerHTML = timeString;
+    }
+
+    // Обновление времени каждую секунду
+    setInterval(updateTime, 1000);
+</script>
 
   <!-- MDB ESSENTIAL -->
   <script type="text/javascript" src="{% static 'assets/js/mdb.min.js' %}"></script>

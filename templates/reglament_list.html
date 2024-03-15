@@ -5,24 +5,20 @@
 
 <div class="container-fluid pt-3 ps-1 pe-1">
     <div class="card-title text-center">
-        <h4 class="text-primary">МЕРОПРИЯТИЯ</h4>
+        <h4 class="text-primary">РЕГЛАМЕНТЫ</h4>
     </div>
     <div class="container pb-1 overflow-auto" style="max-height: 580px;">
         <div class="text-center">
-        {% for item in events_data %}
+        {% for Reglament in reglament_list %}
+            <a href="{% url 'reglament' Reglament.pk %}">
             <div class="card mb-2">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-5">
-                            <img class="img-fluid" src="{{ item.image }}" alt="Event Image">
-                        </div>
-                        <div class="col-7">
-                            {{ item.name }}<br>
-                            {{ item.date }}<br>
-                        </div>
+                    <div class="col-12">
+                        <h5 class="text-primary">{{ Reglament.name }}</h5>
                     </div>
                 </div>
             </div>
+            </a>
         {% endfor %}
         </div>
     </div>
