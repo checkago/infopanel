@@ -7,6 +7,7 @@ WORKDIR /usr/src/web
 
 COPY requirements.txt .
 
+
 RUN apk --update add
 RUN apk add gcc libc-dev libffi-dev jpeg-dev zlib-dev libjpeg libwebp-dev
 
