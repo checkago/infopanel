@@ -1,69 +1,10 @@
-from django.shortcuts import render
+import json
+from datetime import datetime
+
 import requests
-from datetime import date, datetime
-from panel.models import Header
-
-
-def get_events():
-    url = 'https://obs-balashiha.ru/api/v1/event_list/'  # Замените на URL вашего API
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json()
-        filtered_data = []
-
-        for item in data:
-            if (
-                item.get('library') == 'Информационно-культурный центр' and
-                item.get('date') >= str(date.today())
-            ):
-                filtered_data.append(item)
-
-        return filtered_data
-    else:
-        # Обработка ошибки запроса к API
-        return []
-
-
-def get_movies():
-    url = 'https://obs-balashiha.ru/api/v1/cinema-week/'  # Замените на URL вашего API
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json()
-        filtered_data = []
-
-        for item in data:
-            if (
-                item.get('date') >= str(date.today())
-            ):
-                filtered_data.append(item)
-
-        return filtered_data
-    else:
-        # Обработка ошибки запроса к API
-        return []
-
-
-def get_current_season():
-    now = datetime.now()
-    if now.month in range(6, 9):
-        return 'summer'
-    elif now.month in range(9, 12):
-        return 'autumn'
-    elif now.month in range(3, 6):
-        return 'spring'
-    else:
-        return 'winter'
-
-def get_visible_header():
-    current_season = get_current_season()
-    if current_season == 'summer':
-        return Header.objects.filter(summer=True).first()
-    elif current_season == 'winter':
-        return Header.objects.filter(winter=True).first()
-    else:
-        return Header.objects.filter(standart=True).first()
+from django.shortcuts import render, get_object_or_404
+from panel.api import get_events, get_movies, get_visible_header, get_news
+from panel.models import Section, Pravila, PushkinCard, Reglament, Qr
 
 
 def index(request):
@@ -73,25 +14,93 @@ def index(request):
     return render(request, 'index.html', {'events_data': events_data, 'movies_data': movies_data,
                                           'header': header})
 
-# API SECTION
 
-def get_news():
-    url = 'https://obs-balashiha.ru/api/v1/news_list/'  # Замените на URL вашего API
+def news_list(request):
+    news_data = get_news()
+    return render(request, 'news.html', {'news_data': news_data})
+
+
+def news_detail(request, news_id):
+    news_list = get_news()
+    news_item = None
+
+    for news in news_list:
+        if news.get('id') == news_id:
+            news_item = news
+            break
+
+    return render(request, 'news_detail.html', {'news_item': news_item})
+
+
+
+def events_list(request):
+    events_data = get_events()
+    return render(request, 'events.html', {'events_data': events_data})
+
+
+def krujki_list(request):
+    krujki_data = Section.objects.all()
+    return render(request, 'krujki.html', {'krujki_data': krujki_data})
+
+
+def krujok_detail(request, pk):
+    krujok = get_object_or_404(Section, pk=pk)
+    return render(request, 'krujok_detail.html', {'krujok': krujok})
+
+
+def pravila(request):
+    pravila = Pravila.objects.all()
+    return render(request, 'pravila.html', {'pravila': pravila})
+
+
+def pushkin(request):
+    pushkin = PushkinCard.objects.all()
+    return render(request, 'pushkin.html', {'pushkin': pushkin})
+
+
+def reglament_list(request):
+    reglament_list = Reglament.objects.all()
+    return render(request, 'reglament_list.html', {'reglament_list': reglament_list})
+
+
+def reglament_detail(request, pk):
+    reglament = get_object_or_404(Reglament, pk=pk)
+    return render(request, 'reglament.html', {'reglament': reglament})
+
+
+def qr(request):
+    qr_list = Qr.objects.all()
+    return render(request, 'qr_list.html', {'qr_list': qr_list})
+
+
+def services_list(request):
+    api_url = 'https://obs-balashiha.ru/api/v1/services_list/'
+    response = requests.get(api_url)
+    services = response.json()
+
+    return render(request, 'services_list.html', {'services': services})
+
+
+def shedule_list(request):
+    url = "https://obs-balashiha.ru/api/v1/active-weeks/"
     response = requests.get(url)
 
     if response.status_code == 200:
         data = response.json()
-        filtered_data = []
+        week_data = data[0]  # Предполагаем, что у вас есть только одна неделя в данных
 
-        for item in data:
-            if (
-                item.get('library') == 'Детская библиотека (ш. Энтузиастов 33)' and
-                item.get('date') >= str(date.today())
-            ):
-                filtered_data.append(item)
+        days = week_data["data"][0]["days"]  # Получаем список дней
 
-        return filtered_data
+        for day in days:
+            for event in day["events"]:
+                event["start_time"] = datetime.strptime(event["start_time"], "%H:%M:%S").strftime("%H:%M")
+                event["end_time"] = datetime.strptime(event["end_time"], "%H:%M:%S").strftime("%H:%M")
+
+        context = {
+            "days": days
+        }
+
+        return render(request, 'shedule_list.html', context)
     else:
-        # Обработка ошибки запроса к API
-        return []
-
+        # Обработка случая, если не удалось получить данные
+        return render(request, 'error_template.html')
