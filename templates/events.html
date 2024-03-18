@@ -4,21 +4,21 @@
 {%  block content %}
 
 <div class="container-fluid pt-3 ps-1 pe-1">
-    <div class="card-title text-center">
-        <h4 class="text-primary">МЕРОПРИЯТИЯ</h4>
+    <div class="card-title text-center pb-5 pt-5">
+        <h1 class="text-primary">МЕРОПРИЯТИЯ</h1>
     </div>
-    <div class="container pb-1 overflow-auto" style="max-height: 580px;">
+    <div class="container pb-1 overflow-auto" style="max-height: 1400px;">
         <div class="text-center">
         {% for item in events_data %}
-            <div class="card mb-2">
+            <div class="card mb-3">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5">
                             <img class="img-fluid" src="{{ item.image }}" alt="Event Image">
                         </div>
                         <div class="col-7">
-                            {{ item.name }}<br>
-                            {{ item.date }}<br>
+                            <h1>{{ item.name }}</h1><br>
+                            <h1>{{ item.date }}</h1><br>
                         </div>
                     </div>
                 </div>

@@ -18,22 +18,23 @@
             {% endfor %}
             {% for day in movies_data %}
             <div class="carousel-item">
-                <div class="row">
+                <div class="container pt-4 pb-5">
                     <div class="col-md-12">
-                        <div class="card card-cascade wider">
-                            <div class="card-header pb-4">
-                                <h1 class="font-weight-bold text-danger"><span class="text-dark">Кинозал</span> | {{ day.day_name }} - {{ day.date }}</h1>
+                        <div class="card card-cascade wider border-black border-3">
+                            <div class="card-header pb-5 pt-5 bg-primary bg-opacity-25">
+                                <h1 class="font-weight-bold text-danger"><span class="text-dark fs-1">КИНОЗАЛ</span> | {{ day.day_name }} - {{ day.date }}</h1>
                             </div>
                             <div class="card-body">
                                 {% for movie in day.movies %}
-                                        <div class="row pb-4">
+                                        <div class="row pb-4 pt-5">
                                             <div class="col-md-3">
-                                                <h2 class="font-weight-bold text-danger font-responsive ri pp mbp">{{ movie.start_time }}</h2>
+                                                <h1 class="font-weight-bold text-danger fs-1">{{ movie.start_time }}</h1>
                                             </div>
                                             <div class="col-md-9">
-                                                <h2 class="font-weight-bold font-responsive ri pp mbp">{{ movie.movie_name }}</h2>
+                                                <h1 class="font-weight-bold fs-1">{{ movie.movie_name }}</h1>
                                             </div>
                                         </div>
+                                    <hr>
                                 {% endfor %}
                             </div>
                         </div>
@@ -68,31 +69,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    function updateSliderData() {
-        // Здесь можно сделать AJAX-запрос к вашему API для получения новых данных
-        // Например, использовать fetch или jQuery AJAX
-
-        fetch('https://obs-balashiha.ru/api/v1/event_list/')
-            .then(response => response.json())
-            .then(data => {
-                let carouselInner = document.getElementById('carousel-inner');
-                carouselInner.innerHTML = '';
-
-                data.forEach(item => {
-                    let carouselItem = document.createElement('div');
-                    carouselItem.classList.add('carousel-item');
-                    carouselItem.innerHTML = `<img src="${item.image}" class="d-block w-100" />`;
-
-                    carouselInner.appendChild(carouselItem);
-                });
-            })
-            .catch(error => console.error('Ошибка при обновлении слайдера:', error));
-    }
-
-    // Обновление данных слайдера каждые 5 минут
-    setInterval(updateSliderData, 300000); // 300000 миллисекунд = 5 минут
-</script>
 
 {% endblock %}
