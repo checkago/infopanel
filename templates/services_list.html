@@ -13,10 +13,10 @@
                 <ul>
                     {% for service in services %}
                         <li>
-                            <h2 class="text-primary">{{ service.name }}</h2><br>
-                            <h4>Время выполнения: {{ service.time }} часов</h4><br>
-                            <h4>Единица измерения: {{ service.ed_izm }}</h4><br>
-                            <strong class="fs-4 text-danger">Цена: {{ service.price }}</strong>
+                            <h1 class="text-primary">{{ service.name }}</h1><br>
+                            <h3>Время выполнения: {{ service.time }} часов</h3><br>
+                            <h3>Единица измерения: {{ service.ed_izm }}</h3><br>
+                            <strong class="fs-1 text-danger">Цена: {{ service.price }}</strong>
                             <hr class="pb-1">
                         </li>
                     {% endfor %}
