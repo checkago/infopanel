@@ -5,22 +5,24 @@
 
 <div class="container-fluid pt-3 ps-1 pe-1">
     <div class="container">
-        <div class="col-12 text-center text-primary">
-            <h4>Пушкинская карта</h4>
+        <div class="col-12 text-center text-primary pb-5 pt-5">
+            <h1>Пушкинская карта</h1>
         </div>
-        <div class="overflow-auto" style="max-height: 585px;">
+        <div class="overflow-auto" style="max-height: 1400px;">
            {% for PushkinCard in pushkin %}
            <div class="card">
                 <div class="card-body">
                     <img class="img-fluid" src="{{ PushkinCard.image.url }}" />
-                    {{ PushkinCard.description|safe }}
+                    <h2>{{ PushkinCard.description|safe }}</h2>
                 </div>
            </div>
            {% endfor %}
         </div>
     </div>
-    <div class="mb-5 text-center fixed-bottom d-grid gap-2 ps-4 pe-4">
-        <a href="{% url 'index' %}" type="button" class="btn btn-primary btn" data-mdb-ripple-init>ВЕРНУТЬСЯ</a>
+    <div class="container pb-5 mb-5 fixed-bottom">
+        <div class="pb-3 mb-3 text-center d-grid gap-2 ps-2 pe-2">
+            <a href="{% url 'index' %}" type="button" class="btn btn-primary fs-1" data-mdb-ripple-init>ВЕРНУТЬСЯ</a>
+        </div>
     </div>
 </div>
 
