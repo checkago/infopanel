@@ -15,7 +15,7 @@ def seasonal_background_color():
         if background.image:
             return f"url('{background.image.url}') center/cover repeat;"
         elif background.standart:
-            return "#fb3;"  # Стандартный цвет фона
+            return "#ffc107;"  # Стандартный цвет фона
     except BackGround.DoesNotExist:
         pass
 
