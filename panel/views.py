@@ -104,3 +104,7 @@ def shedule_list(request):
     else:
         # Обработка случая, если не удалось получить данные
         return render(request, 'error_template.html')
+
+
+def balashiha(request):
+    return render(request, 'balashiha_site.html')

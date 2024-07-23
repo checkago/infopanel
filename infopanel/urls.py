@@ -21,6 +21,7 @@ urlpatterns = [
     path('krujki/<int:pk>/', views.krujok_detail, name='krujok_detail'),
     path('services/', views.services_list, name='services_list'),
     path('shedule/', views.shedule_list, name='shedule_list'),
+    path('balashiha/', views.balashiha, name='balashiha'),
 ]
 
 if settings.DEBUG:
