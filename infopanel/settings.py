@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.88.95', 'localhost']
 SECURE_CROSS_ORIGIN_OPENER_POLICY=None
-
+SESSION_COOKIE_SECURE=False
 # Application definition
 
 INSTALLED_APPS = [
