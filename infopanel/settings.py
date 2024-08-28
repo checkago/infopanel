@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.88.95', 'localhost']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
 ]
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 ROOT_URLCONF = "infopanel.urls"
 
 TEMPLATES = [
