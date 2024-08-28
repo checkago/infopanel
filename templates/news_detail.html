@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h2>{{ news_item.date }}</h2>
                 <div class="col-12">
-                    <img class="img-fluid" src="{{ news_item.image }}" alt="Event Image">
+                    <img class="img-fluid" src="{{ news_item.image }}" alt="{{ news_item.name }}">
                 </div>
                 <div class="col-12 pt-1">
                     <h2>{{ news_item.description|safe }}</h2>
