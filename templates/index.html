@@ -13,7 +13,7 @@
         <div class="carousel-inner" id="carousel-inner">
             {% for item in events_data %}
                 <div class="carousel-item active">
-                  <img src="{{ item.image }}" class="d-block img-fluid" />
+                    <img src="{{ item.image }}" class="d-block img-fluid" alt="{{ item.name }}" />
                 </div>
             {% endfor %}
             {% for day in movies_data %}
