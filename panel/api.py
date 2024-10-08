@@ -5,7 +5,7 @@ from panel.models import Header
 
 
 def get_events():
-    url = 'http://obs-balashiha.ru/api/v1/event_list/'  # Замените на URL вашего API
+    url = 'https://obs-balashiha.ru/api/v1/event_list/'  # Замените на URL вашего API
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -27,7 +27,7 @@ def get_events():
 
 def get_movies():
     locale.setlocale(locale.LC_TIME, 'ru_RU')
-    url = "http://obs-balashiha.ru/api/v1/cinema-week/"
+    url = "https://obs-balashiha.ru/api/v1/cinema-week/"
     movies_data = []
 
     response = requests.get(url)
@@ -79,7 +79,7 @@ def get_visible_header():
 
 
 def get_news():
-    url = 'http://obs-balashiha.ru/api/v1/news_list/'  # Замените на URL вашего API
+    url = 'https://obs-balashiha.ru/api/v1/news_list/'  # Замените на URL вашего API
     response = requests.get(url)
 
     if response.status_code == 200:

@@ -74,7 +74,7 @@ def qr(request):
 
 
 def services_list(request):
-    api_url = 'http://obs-balashiha.ru/api/v1/services_list/'
+    api_url = 'https://obs-balashiha.ru/api/v1/services_list/'
     response = requests.get(api_url)
     services = response.json()
 
@@ -82,7 +82,7 @@ def services_list(request):
 
 
 def shedule_list(request):
-    url = "http://obs-balashiha.ru/api/v1/active-weeks/"
+    url = "https://obs-balashiha.ru/api/v1/active-weeks/"
     response = requests.get(url)
 
     if response.status_code == 200:
