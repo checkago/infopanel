@@ -11,11 +11,17 @@
     <div id="carouselExampleControls" class="carousel slide pt-3 pb-3" data-mdb-ride="carousel"
          data-mdb-carousel-init>
         <div class="carousel-inner" id="carousel-inner">
-            {% for item in events_data %}
+            {% if events_data %}
+                {% for item in events_data %}
+                    <div class="carousel-item active">
+                        <img src="{{ item.image }}" class="d-block img-fluid" alt="{{ item.name }}" />
+                    </div>
+                {% endfor %}
+            {% else %}
                 <div class="carousel-item active">
-                    <img src="{{ item.image }}" class="d-block img-fluid" alt="{{ item.name }}" />
+                    <img src="/media/afisha_blank.jpg" class="d-block img-fluid" alt="" />
                 </div>
-            {% endfor %}
+            {% endif %}
             {% for day in movies_data %}
             <div class="carousel-item">
                 <div class="container pt-4 pb-5">
